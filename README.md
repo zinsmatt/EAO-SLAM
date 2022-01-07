@@ -2,12 +2,14 @@
 
 **Related Paper:**  
 
-+ Wu Y, Zhang Y, Zhu D, et al. **EAO-SLAM: Monocular Semi-Dense Object SLAM Based on Ensemble Data Association**[C]//2020 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS). IEEE, 2020: 4966-4973. [[**PDF**](https://arxiv.org/abs/2004.12730)] [[**YouTube**](https://youtu.be/pvwdQoV1KBI)] [[**bilibili**](https://www.bilibili.com/video/av94805216)]  [[**Project page**](https://yanmin-wu.github.io/project/eaoslam/)].
++ Wu Y, Zhang Y, Zhu D, et al. **EAO-SLAM: Monocular Semi-Dense Object SLAM Based on Ensemble Data Association**[C]//2020 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS). IEEE, 2020: 4966-4973. [[**Paper**](https://ieeexplore.ieee.org/abstract/document/9341757)] [[**Arxiv**](https://arxiv.org/abs/2004.12730)] [[**YouTube**](https://youtu.be/pvwdQoV1KBI)] [[**bilibili**](https://www.bilibili.com/video/av94805216)]  [[**Project page**](https://yanmin-wu.github.io/project/eaoslam/)].
 + Extended Work
-    + Wu Y, Zhang Y, Zhu D, et al. **Object-Driven Active Mapping for More Accurate Object Pose Estimation and Robotic Grasping**[J]. arXiv preprint arXiv:2012.01788, 2020. [[**PDF**](https://arxiv.org/abs/2012.01788)] [[**Project page**](https://yanmin-wu.github.io/project/active-mapping/)].
+    + Wu Y, Zhang Y, Zhu D, et al. **Object SLAM-Based Active Mapping and Robotic Grasping**[C]//2021 International Conference on 3D Vision (3DV). IEEE, 2021: 1372-1381. [[**Paper**](https://ieeexplore.ieee.org/document/9665905)] [[**Arxiv**](https://arxiv.org/abs/2012.01788)] [[**Project page**](https://yanmin-wu.github.io/project/active-mapping/)].
     + Robotic Grasping demo: [YouTube](https://youtu.be/cNtvqiArVfI) | [bilibili](https://www.bilibili.com/video/BV1ZA411p7KK)
     + Augmented Reality demo: [YouTube](https://youtu.be/E8jfkO_Q7Iw) | [bilibili](https://www.bilibili.com/video/BV1V5411p7gA)
 + If you use the code in your academic work, please cite the above paper. 
+
+---
 
 ## 1. Prerequisites
 
@@ -23,8 +25,8 @@ chmod +x build.sh
 
 ## 3. Examples
 
-+ 0. We provide a demo that uses the **`TUM rgbd_dataset_freiburg3_long_office_household`** sequence;  please download the dataset beforehand. The offline object bounding boxes are in `data/yolo_txts` folder.
-+ 1. **Object size and orientation estimation**.
++ **3.0** We provide a demo that uses the **`TUM rgbd_dataset_freiburg3_long_office_household`** sequence;  please download the dataset beforehand. The offline object bounding boxes are in `data/yolo_txts` folder.
++ **3.1** **Object size and orientation estimation**.
     + use **iForest and line alignment**:
         ```
         ./Examples/Monocular/mono_tum LineAndiForest [path of tum fr3_long_office]
@@ -43,7 +45,7 @@ chmod +x build.sh
     </p>
     </figure>
 
-+ 2. **Data association**
++ **3.2** **Data association**
     + **without** data association:
         ```
         ./Examples/Monocular/mono_tum NA [path of tum fr3_long_office]
@@ -66,7 +68,7 @@ chmod +x build.sh
     </p>
     </figure>
 
-+ 3. **The full demo on TUM fr3_long_office sequence:**
++ **3.3** **The full demo on TUM fr3_long_office sequence:**
     ```
     ./Examples/Monocular/mono_tum Full [path of tum fr3_long_office]
     ```
@@ -96,3 +98,23 @@ Thanks for the great work: [**ORB-SLAM2**](https://github.com/raulmur/ORB_SLAM2)
 
 + [Yanmin Wu](https://yanmin-wu.github.io/), Email: wuyanminmax@gmail.com
 + Corresponding author: [Yunzhou Zhang *](http://faculty.neu.edu.cn/ise/zhangyunzhou), Email: zhangyunzhou@mail.neu.edu.cn
+
+```
+@inproceedings{wu2020eao,
+  title={EAO-SLAM: Monocular semi-dense object SLAM based on ensemble data association},
+  author={Wu, Yanmin and Zhang, Yunzhou and Zhu, Delong and Feng, Yonghui and Coleman, Sonya and Kerr, Dermot},
+  booktitle={2020 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  pages={4966--4973},
+  year={2020},
+  organization={IEEE}
+}
+
+@inproceedings{wu2021object,
+  title={Object SLAM-Based Active Mapping and Robotic Grasping},
+  author={Wu, Yanmin and Zhang, Yunzhou and Zhu, Delong and Chen, Xin and Coleman, Sonya and Sun, Wenkai and Hu, Xinggang and Deng, Zhiqiang},
+  booktitle={2021 International Conference on 3D Vision (3DV)},
+  pages={1372-1381},
+  year={2021},
+  organization={IEEE}
+}
+```
