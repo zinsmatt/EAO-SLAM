@@ -38,6 +38,7 @@ namespace ORB_SLAM2
     class Object_2D
     {
         public:
+        EIGEN_MAKE_ALIGNED_OPERATOR_NEW
             int _class_id;      // class id.
             float mScore;       // Probability.
 

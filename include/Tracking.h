@@ -65,7 +65,7 @@ public:
     cv::Mat GrabImageRGBD(const cv::Mat &imRGB,const cv::Mat &imD, const double &timestamp);
     cv::Mat GrabImageMonocular( const cv::Mat &im, 
                                 const double &timestamp,
-                                const bool bSemanticOnline);
+                                const bool bSemanticOnline, const std::string& name);
 
     void SetLocalMapper(LocalMapping* pLocalMapper);
     void SetLoopClosing(LoopClosing* pLoopClosing);

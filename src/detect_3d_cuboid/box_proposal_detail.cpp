@@ -35,6 +35,7 @@
 #include "detect_3d_cuboid/object_3d_util.h"
 //#include "tictoc_profiler/profiler.hpp"
 
+#include <numeric>
 
 using namespace std;
 // using namespace cv;

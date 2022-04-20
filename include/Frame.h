@@ -83,6 +83,7 @@ class Object_2D;
 class Frame
 {
 public:
+EIGEN_MAKE_ALIGNED_OPERATOR_NEW
     Frame();
 
     // Copy constructor.

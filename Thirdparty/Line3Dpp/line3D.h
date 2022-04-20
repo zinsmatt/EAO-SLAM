@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <iomanip>
 
 // external
-#include "eigen3/Eigen/Eigen"
+#include "Eigen/Eigen"
 #include "boost/filesystem.hpp"
 #include "boost/thread/mutex.hpp"
 

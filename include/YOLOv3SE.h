@@ -258,6 +258,7 @@ public:
 			iss >> box.m_class;
 			float x1, y1, x2, y2;
 			iss >> x1 >> y1 >> x2 >> y2;
+			std::cout << "===> " << x1 << " "  << x2 << " "  << y1 << " "  << y2 << "\n";
 			box.x = static_cast<int>((x1 - x2 / 2)*size.width);
 			box.y = static_cast<int>((y1 - y2 / 2)*size.height);
 			box.width = static_cast<int>(x2*size.width);

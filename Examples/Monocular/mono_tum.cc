@@ -37,20 +37,24 @@ int main(int argc, char **argv)
     // - iForest: only use iForest without Line Alignment.
     // - None: without iForest and Line Alignment.
     if((string(argv[1]) == "None") || (string(argv[1]) == "iForest") || (string(argv[1]) == "LineAndiForest"))
-        strFile = "./data/rgb_seq_pose.txt";
+        strFile = "../../data/rgb_seq_pose.txt";
     // [Demo2] data association.
     else if((string(argv[1]) == "IoU") || (string(argv[1]) == "NP") || (string(argv[1]) == "EAO") || (string(argv[1]) == "NA"))
-        strFile = "./data/rgb_seq_pose.txt";
+        strFile = "../../data/rgb_seq_pose.txt";
     // [Demo3]: run tum rf3_long_office sequence.
     else if(string(argv[1]) == "Full")
-        strFile = "./data/rgb_full_demo.txt";
+        strFile = "../../data/rgb_full_demo.txt";
 
+    strFile = "/media/mzins/DATA1/VideoAppart/bulle_1/frames/rgb.txt";
+std::cout << "before loadimages" << std::endl;
     LoadImages(strFile, vstrImageFilenames, vTimestamps);
+std::cout << "after loadimages" << std::endl;
 
     int nImages = vstrImageFilenames.size();
 
-    string VocFile = "Vocabulary/ORBvoc.bin";
-    string YamlFile = "Examples/Monocular/TUM3.yaml";
+    string VocFile = "../../Vocabulary/ORBvoc.bin";
+    // string YamlFile = "TUM3.yaml";
+    string YamlFile = "MI9T_640x360.yaml";
 
     // Create SLAM system. It initializes all system threads and gets ready to process frames.
     ORB_SLAM2::System SLAM(VocFile, YamlFile, argv[1], ORB_SLAM2::System::MONOCULAR,true);
@@ -85,7 +89,7 @@ int main(int argc, char **argv)
 #endif
 
         // Pass the image to the SLAM system
-        SLAM.TrackMonocular(im,tframe);
+        SLAM.TrackMonocular(im, tframe, vstrImageFilenames[ni]);
 
 #ifdef COMPILEDWITHC11
         std::chrono::steady_clock::time_point t2 = std::chrono::steady_clock::now();
@@ -128,6 +132,46 @@ int main(int argc, char **argv)
     return 0;
 }
 
+// void LoadImages(const string &strFile, vector<string> &vstrImageFilenames, vector<double> &vTimestamps)
+// {
+//     ifstream f;
+//     f.open(strFile.c_str());
+
+//     // skip first three lines
+//     string s0;
+//     getline(f,s0);
+//     getline(f,s0);
+//     getline(f,s0);
+
+//     getline(f,s0);
+//     getline(f,s0);
+//     getline(f,s0);
+
+//     int i = 0;
+//     while(!f.eof())
+//     {
+//         string s;
+//         getline(f,s);
+//         ++i;
+//         std::cout << s << std::endl;
+//         if(!s.empty())
+//         {
+//             stringstream ss;
+//             ss << s;
+//             double t;
+//             string sRGB;
+//             ss >> t;
+//             vTimestamps.push_back(t);
+//             ss >> sRGB;
+//             vstrImageFilenames.push_back(sRGB);
+//         }
+//         // if (i > 100) 
+//         //     break;
+//     }
+// }
+
+
+
 void LoadImages(const string &strFile, vector<string> &vstrImageFilenames, vector<double> &vTimestamps)
 {
     ifstream f;
@@ -135,28 +179,29 @@ void LoadImages(const string &strFile, vector<string> &vstrImageFilenames, vecto
 
     // skip first three lines
     string s0;
-    getline(f,s0);
-    getline(f,s0);
-    getline(f,s0);
+    // getline(f,s0);
+    // getline(f,s0);
+    // getline(f,s0);
 
-    getline(f,s0);
-    getline(f,s0);
-    getline(f,s0);
-
+    double t = 0;
     while(!f.eof())
     {
         string s;
         getline(f,s);
-        if(!s.empty())
+        if(!s.empty() && s[0] != '#')
         {
             stringstream ss;
             ss << s;
-            double t;
             string sRGB;
-            ss >> t;
+            if (ss.str().find(' ') != std::string::npos) {
+                ss >> t;
+            }
             vTimestamps.push_back(t);
             ss >> sRGB;
             vstrImageFilenames.push_back(sRGB);
+            // std::cout << t << " " << sRGB << "\n";
+            t += 0.033;
         }
     }
+    f.close();
 }

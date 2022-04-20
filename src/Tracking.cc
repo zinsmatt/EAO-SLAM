@@ -198,7 +198,7 @@ Tracking::Tracking( System *pSys, ORBVocabulary *pVoc, FrameDrawer *pFrameDrawer
     // notice: Only the camera pose of the initial frame is used to determine the ground plane normal.
     if (mbReadedGroundtruth == false)
     {
-        ifstream infile("./data/groundtruth.txt", ios::in);
+        ifstream infile("../../data/groundtruth.txt", ios::in);
         if (!infile.is_open())
         {
             cout << "tum groundtruth file open fail" << endl;
@@ -333,7 +333,7 @@ cv::Mat Tracking::GrabImageRGBD(const cv::Mat &imRGB, const cv::Mat &imD, const 
 
 cv::Mat Tracking::GrabImageMonocular(const cv::Mat &im,
                                      const double &timestamp,
-                                     const bool bSemanticOnline)
+                                     const bool bSemanticOnline, const std::string& name)
 {
     frame_id_tracking++;
 
@@ -423,7 +423,10 @@ cv::Mat Tracking::GrabImageMonocular(const cv::Mat &im,
     else
     {
         // offline object box.
-        ifstream infile("./data/yolo_txts/" + to_string(timestamp) + ".txt", ios::in);
+        // ifstream infile("../../data/yolo_txts/" + to_string(timestamp) + ".txt", ios::in
+        std::string name_no_ext(name.begin(), name.begin() + name.size()-4);
+        std::cout << ">>>>>" << "../../data/yolo_bulle_1/" + name_no_ext + ".txt" << std::endl;
+        ifstream infile("../../data/yolo_bulle_1/" + name_no_ext + ".txt", ios::in);
         if (!infile.is_open())
         {
             cout << "yolo_detection file open fail" << endl;
@@ -532,7 +535,8 @@ cv::Mat Tracking::GrabImageMonocular(const cv::Mat &im,
             }
 
             // Eigen --> SE3.
-            g2o::SE3Quat cam_pose_se3(truth_frame_poses.row(0).tail<7>());
+            // g2o::SE3Quat cam_pose_se3(truth_frame_poses.row(0).tail<7>());
+            g2o::SE3Quat cam_pose_se3(Eigen::Matrix3d::Identity(), Eigen::Vector3d::Zero());
             // std::cout << "cam_pose_se3\n" << cam_pose_se3 << std::endl;
 
             // SE3 --> Mat.
@@ -1017,11 +1021,13 @@ void Tracking::CreateInitialMapMonocular()
 
     // NOTE [EAO] rotate the world coordinate to the initial frame (groundtruth provides the normal vector of the ground).
     // only use the groundtruth of the first frame.
-    cv::Mat InitToGround = mInitialFrame.mGroundtruthPose_mat;
+//    cv::Mat InitToGround = mInitialFrame.mGroundtruthPose_mat;
+    cv::Mat InitToGround = (cv::Mat_<float>(4, 4) << 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0);
 
     cv::Mat R = InitToGround.rowRange(0, 3).colRange(0, 3);
     cv::Mat t = InitToGround.rowRange(0, 3).col(3);
     cv::Mat Rinv = R.t();
+    std::cout << Rinv << "\n" << t << std::endl;
     cv::Mat Ow = -Rinv * t;
     cv::Mat GroundToInit = cv::Mat::eye(4, 4, CV_32F);
     Rinv.copyTo(GroundToInit.rowRange(0, 3).colRange(0, 3));

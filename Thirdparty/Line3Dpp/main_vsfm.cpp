@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <tclap/CmdLine.h>
 #include <tclap/CmdLineInterface.h>
 #include <boost/filesystem.hpp>
-#include "eigen3/Eigen/Eigen"
+#include "Eigen/Eigen"
 
 // std
 #include <iostream>

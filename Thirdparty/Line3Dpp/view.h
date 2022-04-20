@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <map>
 
 // external
-#include "eigen3/Eigen/Eigen"
+#include "Eigen/Eigen"
 #include "boost/thread/mutex.hpp"
 
 // opencv
